@@ -9,7 +9,28 @@
 <body>
 <p class="notice"><%= notice%></p>
 <p class="alert"><%= alert%></p>
-<%= yield %>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <%= link_to "Fake reddit", '#', id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Home", root_url %></li>
+            <li><%= link_to "Help",   '#' %></li>
+              <%# user is logged in, show log out link %>
+  			<% if current_user.present? %>
+    			<li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
+			  	<%# user is not logged in, show signup and login links %>
+			 <% else %>
+			    <li><%= link_to 'Sign In', new_user_session_path %> </li>
+			    <li><%= link_to 'Register Now!', new_user_registration_path %></li>
+			 <% end %>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
+<div class="container">
+<%= yield %>
+</div>
 </body>
 </html>
